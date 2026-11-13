@@ -1,0 +1,9 @@
+{
+  "name": "nhakhoatre-tuvan-noibo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Thư viện tư vấn nội bộ Nha Khoa Trẻ - có đăng nhập và trang quản trị",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "set-admin": "node server.js set-admin" },
+  "engines": { "node": ">=16" }
+}

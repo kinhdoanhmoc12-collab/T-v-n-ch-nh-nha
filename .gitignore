@@ -10,3 +10,11 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+
+# Du lieu mat khau + nhat ky tren may chu (khong dua len GitHub)
+data/
+*.tmp
+
+# File nen va thu muc tam
+*.zip
+Claude outputs/

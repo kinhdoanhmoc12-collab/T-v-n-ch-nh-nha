@@ -1,0 +1,4 @@
+# Giu xuong dong kieu Linux cho script chay tren VPS
+*.sh text eol=lf
+*.js text eol=lf
+*.html text eol=lf

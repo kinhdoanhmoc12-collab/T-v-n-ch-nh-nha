@@ -1,0 +1,6 @@
+<div id="nkt-userbar" style="position:fixed;right:16px;bottom:16px;z-index:2147483000;display:flex;align-items:center;gap:4px;padding:6px;background:rgba(18,63,50,.94);color:#fff;border-radius:999px;font:500 13px/1.2 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.18)">
+{{ADMIN_LINK}}
+<button type="button" id="nkt-logout">Đăng xuất</button>
+</div>
+<style>#nkt-userbar a,#nkt-userbar button{color:#fff;background:rgba(255,255,255,.14);border:0;border-radius:999px;padding:7px 12px;font:inherit;cursor:pointer;text-decoration:none}#nkt-userbar a:hover,#nkt-userbar button:hover{background:rgba(255,255,255,.26)}@media print{#nkt-userbar{display:none!important}}</style>
+<script>document.getElementById('nkt-logout').onclick=function(){fetch('/api/logout',{method:'POST'}).finally(function(){location.href='/login'})};</script>

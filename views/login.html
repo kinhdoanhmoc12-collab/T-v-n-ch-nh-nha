@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Đăng nhập · Nha Khoa Trẻ</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%231c6554%27/%3E%3Ctext x=%277%27 y=%2723%27 font-size=%2721%27 fill=%27%23fff6df%27%3EN%3C/text%3E%3C/svg%3E">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:linear-gradient(160deg,#f7f8f2 0%,#e6eedf 100%);color:#1f2a24}
+  .card{width:100%;max-width:400px;background:#fffefa;border:1px solid #dfe6d8;border-radius:20px;padding:36px 32px 30px;
+    box-shadow:0 18px 50px rgba(18,63,50,.10)}
+  .logo{display:block;height:58px;margin:0 auto 18px}
+  h1{margin:0 0 6px;text-align:center;font-size:22px;color:#123f32}
+  .sub{margin:0 0 26px;text-align:center;color:#6b7a70;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+  label{display:block;font-size:14px;font-weight:600;color:#2b3b33;margin:0 0 6px}
+  input{width:100%;padding:13px 14px;font-size:16px;border:1px solid #cfd9cb;border-radius:12px;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
+  input:focus{border-color:#1c6554;box-shadow:0 0 0 3px rgba(28,101,84,.15)}
+  .field{margin-bottom:16px}
+  .pw{position:relative}
+  .pw button{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;color:#1c6554;font-size:13px;cursor:pointer;padding:6px}
+  .submit{width:100%;margin-top:6px;padding:14px;border:0;border-radius:12px;background:#1c6554;color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:background .15s}
+  .submit:hover{background:#123f32}
+  .submit:disabled{opacity:.6;cursor:wait}
+  .err{display:none;margin:0 0 16px;padding:11px 14px;border-radius:10px;background:#fdecea;color:#a02a1e;font-size:14px}
+  .foot{margin-top:22px;text-align:center;font-size:13px;color:#86938a}
+</style>
+</head>
+<body>
+<form class="card" id="f" autocomplete="on" novalidate>
+  <input type="text" name="username" value="nhakhoatre" autocomplete="username" hidden>
+  <img class="logo" src="/assets/nkt-logo-header.png" alt="Nha Khoa Trẻ">
+  <h1>Thư viện tư vấn</h1>
+  <p class="sub">Tài liệu nội bộ</p>
+  <div class="err" id="err" role="alert"></div>
+  <div class="field">
+    <label for="p">Mật khẩu truy cập</label>
+    <div class="pw">
+      <input id="p" name="password" type="password" autocomplete="current-password" required autofocus>
+      <button type="button" id="show">Hiện</button>
+    </div>
+  </div>
+  <button class="submit" id="btn" type="submit">Đăng nhập</button>
+  <div class="foot">Chưa có mật khẩu? Liên hệ quản trị viên.</div>
+</form>
+<script>
+const f=document.getElementById('f'),err=document.getElementById('err'),btn=document.getElementById('btn'),p=document.getElementById('p');
+document.getElementById('show').onclick=e=>{const s=p.type==='password';p.type=s?'text':'password';e.target.textContent=s?'Ẩn':'Hiện'};
+f.addEventListener('submit',async e=>{
+  e.preventDefault();err.style.display='none';
+  const password=f.password.value;
+  if(!password){err.textContent='Vui lòng nhập mật khẩu.';err.style.display='block';return}
+  btn.disabled=true;btn.textContent='Đang đăng nhập…';
+  try{
+    const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password})});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(d.error||'Không đăng nhập được.');
+    const next=new URLSearchParams(location.search).get('next');
+    location.href=(next&&next.startsWith('/')&&!next.startsWith('//'))?next:'/';
+  }catch(ex){err.textContent=ex.message;err.style.display='block';btn.disabled=false;btn.textContent='Đăng nhập';p.select()}
+});
+</script>
+</body>
+</html>

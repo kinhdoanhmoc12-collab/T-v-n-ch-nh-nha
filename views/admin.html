@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Quản trị · Nha Khoa Trẻ</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%231c6554%27/%3E%3Ctext x=%277%27 y=%2723%27 font-size=%2721%27 fill=%27%23fff6df%27%3EN%3C/text%3E%3C/svg%3E">
+<style>
+  :root{--g:#1c6554;--gd:#123f32;--bg:#f5f7f1;--line:#dfe6d8;--mut:#6b7a70;--red:#b3261e;--card:#fffefa}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#1f2a24;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+  header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:12px 24px;background:#fffefa;border-bottom:1px solid var(--line)}
+  header img{height:40px}
+  header .t{font-weight:700;color:var(--gd);font-size:17px}
+  header .sp{flex:1}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 15px;border-radius:10px;border:1px solid var(--line);background:#fff;color:#1f2a24;font:inherit;font-size:14px;cursor:pointer;text-decoration:none;white-space:nowrap}
+  .btn:hover{border-color:#b9c7b4;background:#f9fbf6}
+  .btn.pri{background:var(--g);border-color:var(--g);color:#fff}
+  .btn.pri:hover{background:var(--gd)}
+  .btn.danger{color:var(--red)}
+  .btn.danger:hover{background:#fdecea;border-color:#f1c3be}
+  .btn.sm{padding:6px 10px;font-size:13px;border-radius:8px}
+  .btn:disabled{opacity:.55;cursor:wait}
+  main{max-width:1100px;margin:0 auto;padding:24px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .stat b{display:block;font-size:26px;color:var(--gd);line-height:1.2}
+  .stat span{color:var(--mut);font-size:13px}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:20px}
+  .card h2{margin:0 0 4px;font-size:18px;color:var(--gd)}
+  .card .hint{margin:0 0 16px;color:var(--mut);font-size:14px}
+  label{display:block;font-size:13px;font-weight:600;color:#3a4a41;margin-bottom:5px}
+  input,select{width:100%;padding:10px 12px;border:1px solid #cfd9cb;border-radius:10px;font:inherit;background:#fff;outline:none}
+  input:focus,select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(28,101,84,.14)}
+  .f{margin-bottom:12px}
+  .tbl{width:100%;border-collapse:collapse;font-size:14px}
+  .tbl th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+  .tbl td{padding:11px 12px;border-bottom:1px solid #edf1ea;vertical-align:middle}
+  .tbl tr:last-child td{border-bottom:0}
+  .wrap{overflow-x:auto}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#47584e}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600}
+  .b-on{background:#e3f1e8;color:#1c6554}.b-fail{background:#fbeee0;color:#9a5a10}
+  .empty{padding:30px;text-align:center;color:var(--mut)}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .filters input{max-width:240px}.filters select{max-width:180px}
+  .muted{color:var(--mut)}
+  dialog{border:0;border-radius:18px;padding:0;max-width:440px;width:calc(100% - 32px);box-shadow:0 24px 70px rgba(0,0,0,.25)}
+  dialog::backdrop{background:rgba(18,30,24,.45)}
+  .dlg{padding:24px}.dlg h3{margin:0 0 8px;color:var(--gd);font-size:18px}.dlg p{margin:0 0 16px;color:#3a4a41}
+  .dlg .foot{display:flex;justify-content:flex-end;gap:8px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#1f2a24;color:#fff;padding:11px 18px;border-radius:10px;font-size:14px;transition:all .2s;z-index:100;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.err{background:var(--red)}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  @media(max-width:640px){header{padding:10px 14px}header .t{display:none}main{padding:16px}.card{padding:16px}}
+</style>
+</head>
+<body>
+<header>
+  <img src="/assets/nkt-logo-header.png" alt="Nha Khoa Trẻ">
+  <div class="t">Quản trị · Thư viện tư vấn</div>
+  <div class="sp"></div>
+  <a class="btn" href="/">Xem trang tư vấn</a>
+  <button class="btn" id="logout">Đăng xuất</button>
+</header>
+
+<main>
+  <div class="stats">
+    <div class="stat"><b id="s-active">–</b><span>Thiết bị đang đăng nhập</span></div>
+    <div class="stat"><b id="s-today">–</b><span>Lượt đăng nhập hôm nay</span></div>
+    <div class="stat"><b id="s-fail">–</b><span>Nhập sai mật khẩu (24 giờ)</span></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Nhật ký đăng nhập</h2>
+      <p class="hint">1.000 lượt gần nhất, mới nhất ở trên.</p>
+      <div class="filters">
+        <input id="l-search" placeholder="Lọc theo IP / thiết bị…">
+        <select id="l-type"><option value="">Tất cả</option><option value="ok">Thành công</option><option value="fail">Nhập sai</option></select>
+        <button class="btn sm" id="l-reload">Tải lại</button>
+      </div>
+      <div class="wrap"><table class="tbl">
+        <thead><tr><th>Thời gian</th><th>Kết quả</th><th>IP</th><th>Thiết bị</th></tr></thead>
+        <tbody id="l-body"><tr><td colspan="4" class="empty">Đang tải…</td></tr></tbody>
+      </table></div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>Đổi mật khẩu</h2>
+        <p class="hint">Đổi xong, mọi thiết bị khác đang đăng nhập sẽ bị đăng xuất và phải nhập mật khẩu mới.</p>
+        <form id="pwForm" autocomplete="off">
+          <input type="text" name="username" value="nhakhoatre" autocomplete="username" hidden>
+          <div class="f"><label for="c-cur">Mật khẩu hiện tại</label><input id="c-cur" type="password" autocomplete="current-password"></div>
+          <div class="f"><label for="c-new">Mật khẩu mới (ít nhất 8 ký tự)</label><input id="c-new" type="password" autocomplete="new-password"></div>
+          <div class="f" style="margin-bottom:16px"><label for="c-new2">Nhập lại mật khẩu mới</label><input id="c-new2" type="password" autocomplete="new-password"></div>
+          <button class="btn pri" type="submit">Lưu mật khẩu mới</button>
+        </form>
+      </div>
+      <div class="card">
+        <h2>Thiết bị đang đăng nhập</h2>
+        <p class="hint">Đăng xuất mọi thiết bị khác, chỉ giữ lại máy anh/chị đang dùng. Mật khẩu không đổi.</p>
+        <button class="btn danger" id="kick">Đăng xuất tất cả thiết bị khác</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<dialog id="cfDlg"><div class="dlg">
+  <h3 id="cf-title"></h3><p id="cf-desc"></p>
+  <div class="foot"><button class="btn" id="cf-no">Huỷ</button><button class="btn danger" id="cf-yes">Đồng ý</button></div>
+</div></dialog>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+let logs=[];
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmt(t){const d=new Date(t);return d.toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})}
+function device(ua){ua=ua||'';const os=/iPhone|iPad/.test(ua)?'iPhone/iPad':/Android/.test(ua)?'Android':/Windows/.test(ua)?'Windows':/Mac OS/.test(ua)?'macOS':/Linux/.test(ua)?'Linux':'';
+  const br=/Edg\//.test(ua)?'Edge':/CocCoc|coc_coc/.test(ua)?'Cốc Cốc':/Chrome\//.test(ua)?'Chrome':/Firefox\//.test(ua)?'Firefox':/Safari\//.test(ua)?'Safari':'';return [br,os].filter(Boolean).join(' · ')||'Không rõ'}
+let tt;function toast(m,e){const t=$('#toast');t.textContent=m;t.className='toast show'+(e?' err':'');clearTimeout(tt);tt=setTimeout(()=>t.className='toast',2800)}
+async function api(path,opt={}){
+  const r=await fetch(path,Object.assign({headers:{'Content-Type':'application/json'}},opt));
+  if(r.status===401){location.href='/login?next=/admin';throw new Error('Phiên đăng nhập đã hết hạn')}
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||'Có lỗi xảy ra');
+  return d;
+}
+function confirmBox(title,desc){return new Promise(res=>{
+  $('#cf-title').textContent=title;$('#cf-desc').textContent=desc;const d=$('#cfDlg');
+  const done=v=>{d.close();res(v)};$('#cf-yes').onclick=()=>done(true);$('#cf-no').onclick=()=>done(false);d.oncancel=()=>done(false);d.showModal();
+})}
+
+function renderLogs(){
+  const q=$('#l-search').value.trim().toLowerCase(),t=$('#l-type').value;
+  const list=logs.filter(l=>(!t||(t==='ok')===!!l.ok)&&(!q||(l.ip+' '+device(l.ua)).toLowerCase().includes(q)));
+  if(!list.length){$('#l-body').innerHTML='<tr><td colspan="4" class="empty">Chưa có dữ liệu.</td></tr>';return}
+  $('#l-body').innerHTML=list.slice(0,500).map(l=>`<tr>
+    <td style="white-space:nowrap">${fmt(l.t)}</td>
+    <td>${l.ok?'<span class="badge b-on">Thành công</span>':`<span class="badge b-fail">${esc(l.reason||'Nhập sai')}</span>`}</td>
+    <td class="mono">${esc(l.ip)}</td>
+    <td class="muted" title="${esc(l.ua)}">${esc(device(l.ua))}</td></tr>`).join('');
+}
+async function loadAll(){
+  try{
+    const [a,b]=await Promise.all([api('/api/admin/logs'),api('/api/admin/sessions')]);
+    logs=a.logs;$('#s-active').textContent=b.active;
+    const now=Date.now(),start=new Date();start.setHours(0,0,0,0);
+    $('#s-today').textContent=logs.filter(l=>l.ok&&new Date(l.t)>=start).length;
+    $('#s-fail').textContent=logs.filter(l=>!l.ok&&now-new Date(l.t)<864e5).length;
+    renderLogs();
+  }catch(e){toast(e.message,1)}
+}
+$('#l-search').oninput=renderLogs;$('#l-type').onchange=renderLogs;$('#l-reload').onclick=loadAll;
+
+$('#pwForm').onsubmit=async e=>{
+  e.preventDefault();
+  const cur=$('#c-cur').value,nw=$('#c-new').value,nw2=$('#c-new2').value;
+  if(nw.length<8)return toast('Mật khẩu mới phải có ít nhất 8 ký tự',1);
+  if(nw!==nw2)return toast('Hai lần nhập mật khẩu mới không khớp',1);
+  try{await api('/api/admin/password',{method:'POST',body:JSON.stringify({current:cur,next:nw})});$('#pwForm').reset();toast('Đã đổi mật khẩu. Các thiết bị khác đã bị đăng xuất.');loadAll()}catch(ex){toast(ex.message,1)}
+};
+$('#kick').onclick=async()=>{
+  if(!await confirmBox('Đăng xuất thiết bị khác','Mọi thiết bị khác sẽ phải nhập lại mật khẩu để vào trang. Máy anh/chị đang dùng vẫn giữ đăng nhập.'))return;
+  try{await api('/api/admin/logout-others',{method:'POST'});toast('Đã đăng xuất các thiết bị khác');loadAll()}catch(ex){toast(ex.message,1)}
+};
+$('#logout').onclick=()=>fetch('/api/logout',{method:'POST'}).finally(()=>location.href='/login');
+loadAll();
+</script>
+</body>
+</html>
